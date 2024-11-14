@@ -1,12 +1,12 @@
-generator client {
-  provider = "prisma-client-js"
-}
-
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = env("DATABASE_PRISMA_URL")
 }
 
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-3.0.x"]
+}
 
 model User {
   id            String          @id @default(cuid())
@@ -19,9 +19,9 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
-  // Optional for WebAuthn support
   Authenticator Authenticator[]
   managerUser   Affiliate[]
+  affiliates    UserAffiliate[]
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
 }
@@ -98,7 +98,21 @@ model Affiliate {
   block       Int?               @default(0)
   createdAt   DateTime           @default(now())
   casinos     casino_p_casinos[]
+  managers    UserAffiliate[]
   managerUser User?              @relation(fields: [manager], references: [id], onDelete: Cascade)
+}
+
+model UserAffiliate {
+  id          Int       @id @default(autoincrement())
+  userId      String
+  affiliateId Int
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  affiliate   Affiliate @relation(fields: [affiliateId], references: [id], onDelete: Cascade)
+  createdAt   DateTime  @default(now())
+
+  @@unique([userId, affiliateId])
+  @@index([userId])
+  @@index([affiliateId])
 }
 
 model casino_p_casinos {
@@ -144,6 +158,15 @@ model casino_p_casinos {
   jurisdictions casino_p_jurisdictions[]
   casino_geo    casino_p_restrictions[]
   softwares     casino_p_software_link[]
+  ppc          casino_p_ppc[]
+  outbounding   outbounding[]
+}
+
+model casino_p_ppc {
+  id Int @id @default(autoincrement())
+  casino Int
+  ppc_url String
+  casinos casino_p_casinos? @relation(fields: [casino], references: [id], onDelete: Cascade)
 }
 
 model casino_p_software {
@@ -299,4 +322,17 @@ model needs_approval {
   id       Int @id @default(autoincrement())
   casino   Int
   approved Int @default(0)
+}
+
+model outbounding {
+  id          String            @id @default(cuid())
+  createdAt   DateTime          @default(now())
+  casinoId    Int?
+  casino_outs casino_p_casinos? @relation(fields: [casinoId], references: [id], onDelete: Cascade)
+  geo         String
+  ip          String
+  userAgent   String
+  referer     String
+
+  @@unique([ip, casinoId])
 }
