@@ -1,0 +1,39 @@
+{
+  "name": "ppc",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "postinstall": "prisma generate",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "studio": "dotenv -e .env.local -- prisma studio",
+    "db:push": "npx prisma db push --env-file .env.local",
+    "db:validate": "dotenv -e .env.local -- prisma validate",
+    "db:format": "dotenv -e .env.local -- prisma format",
+    "db:migrate": "dotenv -e .env.local -- prisma migrate",
+    "db:generate": "dotenv -e .env.local -- prisma generate",
+    "prepare": "husky install",
+    "prisma:generate": "npx prisma generate"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.22.0",
+    "@vercel/blob": "^0.22.1",
+    "dotenv": "^16.4.5",
+    "next": "15.0.3",
+    "react": "19.0.0-rc-66855b96-20241106",
+    "react-dom": "19.0.0-rc-66855b96-20241106"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "eslint": "^8",
+    "eslint-config-next": "15.0.3",
+    "postcss": "^8",
+    "prisma": "^5.22.0",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  }
+}

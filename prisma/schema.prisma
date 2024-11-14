@@ -1,0 +1,302 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model User {
+  id            String          @id @default(cuid())
+  name          String?
+  email         String          @unique
+  role          Int             @default(1)
+  emailVerified DateTime?
+  skype         String?
+  telegram      String?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  // Optional for WebAuthn support
+  Authenticator Authenticator[]
+  managerUser   Affiliate[]
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+}
+
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([provider, providerAccountId])
+}
+
+model Session {
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@id([identifier, token])
+}
+
+// Optional for WebAuthn support
+model Authenticator {
+  credentialID         String  @unique
+  userId               String
+  providerAccountId    String
+  credentialPublicKey  String
+  counter              Int
+  credentialDeviceType String
+  credentialBackedUp   Boolean
+  transports           String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, credentialID])
+}
+
+model Terms {
+  id        String   @id @default(cuid())
+  version   Int
+  title     String
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Affiliate {
+  id          Int                @id @default(autoincrement())
+  aff_name    String
+  aff_url     String
+  manager     String?
+  block       Int?               @default(0)
+  createdAt   DateTime           @default(now())
+  casinos     casino_p_casinos[]
+  managerUser User?              @relation(fields: [manager], references: [id], onDelete: Cascade)
+}
+
+model casino_p_casinos {
+  id            Int     @id @default(autoincrement())
+  aff_id        Int?
+  casino        String?
+  type          String? @default("Casino")
+  url           String?
+  software      String?
+  approved      Int?    @default(0)
+  updated       String?
+  hot           Int?    @default(0)
+  new           Int?    @default(0)
+  rogue         Int?    @default(0)
+  button        String?
+  blurb         String?
+  softwareid    Int?    @default(0)
+  telephone     String? @default("")
+  contactemail  String? @default("")
+  livechat      Int?    @default(0)
+  mobile        Int?    @default(0)
+  homepageimage String?
+  livegames     Int?    @default(0)
+  clean_name    String? @default("")
+  currencies    String? @default("")
+
+  currency_val              Int?    @default(0)
+  review_overall            Int?    @default(0)
+  nodeposit                 Int?    @default(0)
+  freespins                 Int?    @default(0)
+  bonus_percent             Int?    @default(0)
+  deposit                   Int?    @default(0)
+  vercel_image_url          String?
+  vercel_image_size         Int?    @default(0)
+  vercel_casino_button      String?
+  vercel_casino_button_size Int?    @default(0)
+  lcb_url                   String?
+  timestamp                 Int?    @default(0)
+
+  affiliate     Affiliate?               @relation(fields: [aff_id], references: [id])
+  banklist      casino_p_bank_connect[]
+  bonuses       casino_p_bonus[]
+  jurisdictions casino_p_jurisdictions[]
+  casino_geo    casino_p_restrictions[]
+  softwares     casino_p_software_link[]
+}
+
+model casino_p_software {
+  id                Int                      @id @default(autoincrement())
+  software_name     String?
+  status            Int?
+  link              String?
+  smallimage        String?
+  image             String?
+  show              Int?
+  vercel_image_url  String?
+  vercel_image_size Int?
+  slots_launch_id   Int?
+  softwarelist      casino_p_software_link[]
+}
+
+model casino_p_software_link {
+  id           Int                @id @default(autoincrement())
+  casino       Int?
+  software     Int?
+  softwares    casino_p_casinos?  @relation(fields: [casino], references: [id], onDelete: Cascade)
+  softwarelist casino_p_software? @relation(fields: [software], references: [id], onDelete: Cascade)
+
+  @@unique([casino, software])
+  @@index(fields: [casino, software])
+}
+
+model casino_p_lcb_juristrictions {
+  id                Int                      @id @default(autoincrement())
+  name              String
+  jurisdiction_data casino_p_jurisdictions[]
+}
+
+model casino_p_jurisdictions {
+  jid               Int                          @id @default(autoincrement())
+  casino_id         Int?
+  jurisdiction_id   Int
+  jurisdictions     casino_p_casinos?            @relation(fields: [casino_id], references: [id], onDelete: Cascade)
+  jurisdiction_data casino_p_lcb_juristrictions? @relation(fields: [jurisdiction_id], references: [id], onDelete: Cascade)
+
+  @@unique([casino_id, jurisdiction_id])
+  @@index(fields: casino_id)
+}
+
+model casino_p_banks {
+  id                     Int                     @id @default(autoincrement())
+  name                   String
+  display                String
+  image                  String?
+  largeimage             String?
+  description            String?
+  rank                   Int?
+  status                 Int?
+  w                      Int?
+  h                      Int?
+  tw                     Int?
+  th                     Int?
+  link                   String?
+  vercel_image_url       String?
+  vercel_image_size      Int?
+  vercel_largeimage_url  String?
+  vercel_largeimage_size Int?
+  bank_data              casino_p_bank_connect[]
+
+  @@index(fields: [vercel_image_url, vercel_image_size, vercel_largeimage_url, vercel_largeimage_size])
+}
+
+model casino_p_bank_connect {
+  id        Int               @id @default(autoincrement())
+  parent    Int?
+  bank      Int?
+  type      Int?
+  bank_data casino_p_banks?   @relation(fields: [bank], references: [id], onDelete: Cascade)
+  banklist  casino_p_casinos? @relation(fields: [parent], references: [id], onDelete: Cascade)
+
+  @@unique([parent, bank])
+  @@index(fields: [parent, bank])
+}
+
+model casino_p_bonus {
+  id               Int               @id @default(autoincrement())
+  parent           Int
+  game             String?
+  freespins        Int?
+  freeplay         String?
+  nodeposit        Int?
+  deposit          Int?
+  deposit_amount   Int?
+  min_deposit      Int?
+  name             String?
+  comments         String?
+  position         Int?
+  code             String?
+  active           Int?
+  playthrough      Int?
+  type             String?
+  link             String?
+  max_cashout      String?
+  cashable         Int?
+  exclusive        Int?
+  added            String?
+  update_main      Int?
+  currency         String?
+  multi_currency   String?
+  wager            Int?              @default(0)
+  percent          Int?
+  exported         String?
+  geo              String?
+  geo_deny         String?
+  geo_values       Int[]
+  geo_type         Int?              @default(0) // 0 for allow, 1 for deny
+  url              String?
+  currencies       String?
+  casino_p_casinos casino_p_casinos? @relation(fields: [parent], references: [id], onDelete: Cascade)
+
+  @@index(fields: [parent, freespins, nodeposit, deposit, deposit_amount, position, active, percent])
+}
+
+model casino_p_restrictions {
+  id         Int              @id @default(autoincrement())
+  casino     Int
+  country    String
+  allow      Int?
+  casino_geo casino_p_casinos @relation(fields: [casino], references: [id], onDelete: Cascade)
+
+  @@unique([casino, country])
+  @@index(fields: [casino, country, allow])
+}
+
+model currency {
+  id     Int    @id @default(autoincrement())
+  name   String
+  symbol String
+}
+
+model casino_p_lcb_countries_codes {
+  idcountry   Int    @id
+  countrycode String
+  countryname String
+}
+
+model casino_p_transactions {
+  id              Int      @id @default(autoincrement())
+  casino          Int?
+  game            Int?
+  bonus           Int?
+  deleted         Int      @default(0)
+  implemented_at  DateTime
+  sites_completed Int[]
+}
+
+model needs_approval {
+  id       Int @id @default(autoincrement())
+  casino   Int
+  approved Int @default(0)
+}
