@@ -1,13 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
-type RouteContext = {
-  params: {
-    button: string;
-  };
-};
-
-export async function GET(request: NextRequest, { params }: RouteContext) {
+export async function GET(
+  request: NextRequest,
+  { params }: { params: { button: string } }
+) {
   const button = params.button;
 
   try {
@@ -16,8 +13,8 @@ export async function GET(request: NextRequest, { params }: RouteContext) {
       where: { button: button },
       select: {
         vercel_casino_button: true,
-        vercel_casino_button_size: true, // Add this to use as part of the ETag
-        id: true, // Add this to use as part of the ETag
+        vercel_casino_button_size: true,
+        id: true,
       },
     });
 
@@ -49,7 +46,7 @@ export async function GET(request: NextRequest, { params }: RouteContext) {
     return new NextResponse(imageBuffer, {
       headers: {
         "Content-Type": contentType || "image/png",
-        "Cache-Control": "public, max-age=3600, stale-while-revalidate=86400", // Cache for 1 hour, stale for 1 day
+        "Cache-Control": "public, max-age=3600, stale-while-revalidate=86400",
         ETag: etag,
       },
     });
