@@ -26,7 +26,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-emerald-600`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        style={{
+          backgroundImage: "url('/bg.jpeg')",
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundAttachment: 'fixed'
+        }}
       >
         <main className="max-w-[1256px] mx-auto">
           {children}

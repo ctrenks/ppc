@@ -336,3 +336,13 @@ model outbounding {
 
   @@unique([ip, casinoId])
 }
+
+model Newsletter {
+  id                Int      @id @default(autoincrement())
+  email             String
+  siteId            Int
+  verified          Int      @default(0)
+  verificationToken String?  @unique
+  
+  @@unique([email, siteId])
+}
