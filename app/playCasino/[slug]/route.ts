@@ -54,10 +54,9 @@ export async function GET(
     }
 
     // Redirect to PPC URL if exists, otherwise casino URL
-    console.log("PPC URL:", casino.ppc?.[0]?.ppc_url);
-    console.log("Casino URL:", casino.url);
+
     const redirectUrl = casino.ppc?.[0]?.ppc_url || casino.url;
-    console.log("Redirecting to:", casino.url);
+
     if (redirectUrl) {
       return NextResponse.redirect(new URL(casino?.url ?? "/"), 302);
     }

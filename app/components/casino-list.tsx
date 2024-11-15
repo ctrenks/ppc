@@ -190,7 +190,7 @@ export default async function Component() {
     <div className="container mx-auto px-4 py-8">
       <div className="bg-amber-50 border-2 mb-2 border-amber-400 shadow-md rounded-lg overflow-hidden">
         <h1 className="text-3xl font-bold mb-6 text-center">
-          Top 10 Canadian Casinos
+          Top 10 USA November Casinos
         </h1>
         <p className="text-xl p-4  text-center">
           Delivering the top 10 casinos for USA players, we believe that you
