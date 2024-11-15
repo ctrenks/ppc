@@ -1,11 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
-export async function GET(
-  request: NextRequest,
-  context: { params: { button: string } }
-) {
-  const button = context.params.button;
+interface RouteParams {
+  params: Promise<{
+    button: string;
+  }>;
+}
+
+export async function GET(request: NextRequest, context: RouteParams) {
+  const params = await context.params;
+  const button = params.button;
 
   try {
     // Look up the casino by the button value
