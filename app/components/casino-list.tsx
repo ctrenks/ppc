@@ -1,7 +1,13 @@
 import { prisma } from "@/lib/prisma";
 import Image from "next/image";
 import NewsLetter from "./NewsLetter";
+import { Metadata } from "next";
 
+export const metadata: Metadata = {
+  title: "USA top ten casinos for November 2024",
+  description:
+    "Find the hottest deals for USA players for the month og November 2024",
+};
 export default async function Component() {
   const siteId = 10;
   const sitename = "Slots and Bonuses";
