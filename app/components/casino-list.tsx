@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default async function Component() {
   const siteId = 10;
   const sitename = "Slots and Bonuses";
-  const picks = "1350,1314,1315,1318,1120,1122,1126,1125,1124,1123";
+  const picks = "1350,1314,1315,1318,170,1327,1304,881,1263,1264";
   const casinoData = await prisma.casino_p_casinos.findMany({
     where: {
       id: {
@@ -64,9 +64,9 @@ export default async function Component() {
       freespins: orderedCasinoData[1].freespins,
       deposit: orderedCasinoData[1].deposit,
       bonus_percent: orderedCasinoData[1].bonus_percent,
-      benefits: ["200 Free Spins", "VIP Program", "Mobile-Friendly"],
+      benefits: ["120 Free Spins", "VIP Program", "RTG Slots"],
       description:
-        "Treat yourself like royalty at Royal Flush Palace. Our VIP program offers exclusive perks, while our mobile platform ensures you can play anytime, anywhere.",
+        "Treat yourself like royalty at Heaps o Spins Casino. Our VIP program offers exclusive perks, while our mobile platform ensures you can play anytime, anywhere.",
     },
     {
       name: orderedCasinoData[2].casino,
@@ -77,9 +77,9 @@ export default async function Component() {
       freespins: orderedCasinoData[2].freespins,
       deposit: orderedCasinoData[2].deposit,
       bonus_percent: orderedCasinoData[2].bonus_percent,
-      benefits: ["No Deposit Bonus", "Live Dealer Games", "Fast Payouts"],
+      benefits: ["No Deposit Bonus", "RTG Games", "330% Welcome Bonus"],
       description:
-        "Enjoy the luxury and excitement of Golden Chips Resort, featuring live dealer games and lightning-fast payouts. Claim your no deposit bonus today!",
+        "Another new RTG casino with fantastic table games and lightning-fast payouts. Claim your no deposit free chipbonus today!",
     },
     {
       name: orderedCasinoData[3].casino,
@@ -92,7 +92,7 @@ export default async function Component() {
       bonus_percent: orderedCasinoData[3].bonus_percent,
       benefits: ["High RTP Slots", "Weekly Promotions", "Loyalty Rewards"],
       description:
-        "Experience the thrill of winning big at Jackpot City, known for its high RTP slots and rewarding loyalty program. Take advantage of our weekly promotions!",
+        "Experience the thrill of winning big at Kats Casino, known for its high RTP slots and rewarding loyalty program. Take advantage of our weekly promotions!",
     },
     {
       name: orderedCasinoData[4].casino,
@@ -103,9 +103,9 @@ export default async function Component() {
       freespins: orderedCasinoData[4].freespins,
       deposit: orderedCasinoData[4].deposit,
       bonus_percent: orderedCasinoData[4].bonus_percent,
-      benefits: ["Exclusive Table Games", "Crypto-Friendly", "24/7 Live Chat"],
+      benefits: ["Long time favorite", "Crypto-Friendly", "24/7 Live Chat"],
       description:
-        "Aces High Club offers an exclusive gaming experience with unique table games, crypto payment options, and 24/7 live chat support.",
+        "iNet Bet Casino offers an exclusive gaming experience with unique table games, crypto payment options, and 24/7 live chat support.",
     },
     {
       name: orderedCasinoData[5].casino,
@@ -116,9 +116,9 @@ export default async function Component() {
       freespins: orderedCasinoData[5].freespins,
       deposit: orderedCasinoData[5].deposit,
       bonus_percent: orderedCasinoData[5].bonus_percent,
-      benefits: ["Daily Cashback", "Tournament Events", "Instant Play Games"],
+      benefits: ["RIVAL Games", "500% Welcome Bonus", "No Deposit Bonus"],
       description:
-        "Spin your way to paradise with daily cashback, exciting tournament events, and instant play games at Spin & Win Paradise.",
+        "Decode Casino offers a unique gaming experience with multiple bonuses, tournament events, and instant play games.",
     },
     {
       name: orderedCasinoData[6].casino,
@@ -129,13 +129,9 @@ export default async function Component() {
       freespins: orderedCasinoData[6].freespins,
       deposit: orderedCasinoData[6].deposit,
       bonus_percent: orderedCasinoData[6].bonus_percent,
-      benefits: [
-        "Progressive Jackpots",
-        "Refer-a-Friend Bonus",
-        "Secure Banking",
-      ],
+      benefits: ["Many software providers", "Crypto bonuses", "Secure Banking"],
       description:
-        "Try your luck at Fortune Wheel Casino, where progressive jackpots await. Refer a friend and enjoy a bonus, all while benefiting from our secure banking options.",
+        "Try your luck at Bit Starz Casino, where progressive jackpots await. Crypto bonuses, all while benefiting from our secure banking options.",
     },
     {
       name: orderedCasinoData[7].casino,
@@ -147,12 +143,12 @@ export default async function Component() {
       deposit: orderedCasinoData[7].deposit,
       bonus_percent: orderedCasinoData[7].bonus_percent,
       benefits: [
-        "Mobile App Available",
-        "Unique Dice Games",
+        "175% plus 50 free spins",
+        "Multiple welcome bonuses",
         "Fast Registration",
       ],
       description:
-        "Roll the dice and win big at Lucky Dice Den! Enjoy unique dice games, a convenient mobile app, and fast registration.",
+        "Hit the slots and win big at 7Bit Casino! Enjoy hundreds of slots, a convenient mobile app, and fast registration.",
     },
     {
       name: orderedCasinoData[8].casino,
@@ -164,12 +160,12 @@ export default async function Component() {
       deposit: orderedCasinoData[8].deposit,
       bonus_percent: orderedCasinoData[8].bonus_percent,
       benefits: [
-        "Blackjack Variants",
-        "Low Wagering Requirements",
-        "{Regular Tournaments}",
+        "400% bonus plus 120 Free Spins",
+        "Betsoft, Rival and more",
+        "Great customer loyalty",
       ],
       description:
-        "Experience the thrill of Blackjack Bonanza with various blackjack variants, low wagering requirements, and regular tournaments.",
+        "A great new casino trying to be the best USA casino possible, with large bonuses and vast amount of slots all open to US players.",
     },
     {
       name: orderedCasinoData[9].casino,
@@ -181,12 +177,12 @@ export default async function Component() {
       deposit: orderedCasinoData[9].deposit,
       bonus_percent: orderedCasinoData[9].bonus_percent,
       benefits: [
-        "Live Roulette Tables",
-        "Comp Points System",
-        "Multi-Language Support",
+        "$2000 bonus with 100 free spins",
+        "Arrows Edge, Rival and more",
+        "Multiple bonuses as a player",
       ],
       description:
-        "Immerse yourself in the elegance of Roulette Royale with live roulette tables, a rewarding comp points system, and multi-language support.",
+        "Pure casino does a great job in offering the top games and bonuses USA players are looking for.",
     },
   ];
 
@@ -215,7 +211,7 @@ export default async function Component() {
               <div className="flex items-center justify-center w-16 h-16 bg-amber-500 text-white rounded-full text-2xl font-bold">
                 {index + 1}
               </div>
-              <div className="w-[100px] h-[80px] flex items-center justify-center text-gray-500 text-sm">
+              <div className="w-[100px] h-[80px] rounded-md bg-amber-500 flex items-center justify-center text-gray-500 text-sm">
                 <Image
                   src={`/img/${casino.button ?? ""}`}
                   alt={`${casino.name} logo`}
