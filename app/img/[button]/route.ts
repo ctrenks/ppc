@@ -3,9 +3,9 @@ import { prisma } from "@/lib/prisma";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { button: string } }
+  context: { params: { button: string } }
 ) {
-  const button = params.button;
+  const button = context.params.button;
 
   try {
     // Look up the casino by the button value
