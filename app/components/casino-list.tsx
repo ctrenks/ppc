@@ -1,9 +1,10 @@
 import { prisma } from "@/lib/prisma";
 import Image from "next/image";
-import NewsLetter from './NewsLetter';
+import NewsLetter from "./NewsLetter";
 
 export default async function Component() {
   const siteId = 10;
+  const sitename = "Slots and Bonuses";
   const picks = "1350,1314,1315,1318,1120,1122,1126,1125,1124,1123";
   const casinoData = await prisma.casino_p_casinos.findMany({
     where: {
@@ -41,12 +42,12 @@ export default async function Component() {
       deposit: orderedCasinoData[0].deposit,
       bonus_percent: orderedCasinoData[0].bonus_percent,
       benefits: [
-        "100% Welcome Bonus",
-        "24/7 Customer Support",
-        "Wide Game Selection",
+        "23 Game Providers",
+        "$1000 Welcome Bonus Package",
+        "Visa / MC and crypto payments",
       ],
       description:
-        "Experience the thrill of Vegas-style gaming with our vast selection of slots and table games. New players can enjoy a generous welcome package to kickstart their journey.",
+        "Experience the thrill of Vegas-style gaming with our vast selection of slots and table games. New players can enjoy a generous welcome package to kickstart their journey. VPN for more game options",
     },
     {
       name: orderedCasinoData[1].casino,
@@ -190,9 +191,12 @@ export default async function Component() {
           Top 10 Canadian Casinos
         </h1>
         <p className="text-xl p-4  text-center">
-          Delivering the top 10 casinos for Canada, we believe that you will
-          find these to be just what your looking for. WIth large deposit
-          bonuses to no deposit casino bonuses the best of the best is here.
+          Delivering the top 10 casinos for USA players, we believe that you
+          will find these to be just what your looking for. With large deposit
+          bonuses to no deposit casino bonuses the best of the best is here. If
+          you have not already jumped into using crypto currency for casinos you
+          are missing out, join our newsletter at the bottom of the page to get
+          our guide on using Bitcoin today.
         </p>
       </div>
       <ul className="space-y-6">
@@ -241,13 +245,14 @@ export default async function Component() {
       </ul>
       <div className="bg-amber-50 border-2 mt-2 border-amber-400 shadow-md rounded-lg overflow-hidden">
         <h1 className="text-3xl font-bold mb-6 text-center">
-          We hope you enjoy your time at these casinos!
+          {sitename} Newsletter Sign Up.
         </h1>
         <p className="text-xl p-4  text-center">
           We update the list of casinos on a regular basis to ensure that you
           have the best possible experience. If you have any suggestions or
           feedback, please let us know! Also sign up to our newsletter to stay
-          updated on the latest casinos and promotions.
+          updated on the latest casinos and promotions. Ask today about the
+          crypto currency guide to get started safely with Bitcoin.
         </p>
         <NewsLetter siteId={siteId} />
       </div>

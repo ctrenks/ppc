@@ -3,11 +3,15 @@ import nodemailer from "nodemailer";
 export const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
   port: parseInt(process.env.SMTP_PORT || "587"),
-  secure: process.env.SMTP_SECURE === "true",
+  secure: false,
   auth: {
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASSWORD,
   },
+  tls: {
+    rejectUnauthorized: false,
+    ciphers: 'SSLv3'
+  }
 });
 
 export const sendVerificationEmail = async (
@@ -17,7 +21,7 @@ export const sendVerificationEmail = async (
   const verificationUrl = `${process.env.NEXT_PUBLIC_APP_URL}/api/verify-email?token=${verificationToken}`;
 
   const mailOptions = {
-    from: process.env.SMTP_FROM,
+    from: process.env.SMTP_USER,
     to: email,
     subject: "Verify your newsletter subscription",
     html: `
