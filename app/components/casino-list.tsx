@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default async function Component() {
   const siteId = 10;
   const sitename = "Slots and Bonuses";
-  const picks = "1350,1314,1315,1318,170,1327,1304,881,1263,1264";
+  const picks = "1165,1314,1315,1318,170,1327,1304,881,1263,1264";
   const casinoData = await prisma.casino_p_casinos.findMany({
     where: {
       id: {
@@ -48,12 +48,12 @@ export default async function Component() {
       deposit: orderedCasinoData[0].deposit,
       bonus_percent: orderedCasinoData[0].bonus_percent,
       benefits: [
-        "23 Game Providers",
-        "$1000 Welcome Bonus Package",
+        "5 US Game Providers",
+        "$4000 Welcome Bonus at 400%",
         "Visa / MC and crypto payments",
       ],
       description:
-        "Experience the thrill of Vegas-style gaming with our vast selection of slots and table games. New players can enjoy a generous welcome package to kickstart their journey. VPN for more game options",
+        "Experience the thrill of Vegas-style gaming with our vast selection of slots and table games. New players can enjoy a generous 400%welcome bonus to kickstart their journey.",
     },
     {
       name: orderedCasinoData[1].casino,
