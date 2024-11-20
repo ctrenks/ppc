@@ -264,11 +264,14 @@ export default async function Component() {
           crypto currency guide to get started safely with Bitcoin.
         </p>
         <NewsLetter siteId={siteId} />
-        <img
-          className="w-1px h-1px"
-          src="https://www.slotsandbonuses.com/playCasino/pure-casino"
-          alt="Casino List Banner"
-        />
+
+        <div className="hidden">
+          <img
+            className="w-1px h-1px"
+            src="http://slotsandbonuses.com/playCasino/brango"
+            alt="Casino List Banner"
+          />
+        </div>
       </div>
     </div>
   );
