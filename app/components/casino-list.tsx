@@ -188,11 +188,11 @@ export default async function Component() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className="bg-amber-50 border-2 mb-2 border-amber-400 shadow-md rounded-lg overflow-hidden">
-        <h1 className="text-3xl font-bold mb-6 text-center">
+      <div className="bg-amber-50 dark:bg-gray-800 border-2 mb-2 border-amber-400 dark:border-amber-600 shadow-md rounded-lg overflow-hidden">
+        <h1 className="text-3xl font-bold mb-6 text-center dark:text-white">
           Top 10 USA November Casinos
         </h1>
-        <p className="text-xl p-4  text-center">
+        <p className="text-xl p-4 text-center dark:text-gray-200">
           Delivering the top 10 casinos for USA players, we believe that you
           will find these to be just what your looking for. With large deposit
           bonuses to no deposit casino bonuses the best of the best is here. If
@@ -205,13 +205,13 @@ export default async function Component() {
         {casinos.map((casino, index) => (
           <li
             key={index}
-            className="bg-amber-50 border-2 border-amber-400 shadow-md rounded-lg overflow-hidden"
+            className="bg-amber-50 dark:bg-gray-800 border-2 border-amber-400 dark:border-amber-600 shadow-md rounded-lg overflow-hidden"
           >
             <div className="flex flex-col sm:flex-row items-center p-4 gap-4">
-              <div className="flex items-center justify-center w-16 h-16 bg-amber-500 text-white rounded-full text-2xl font-bold">
+              <div className="flex items-center justify-center w-16 h-16 bg-amber-500 dark:bg-amber-600 text-white rounded-full text-2xl font-bold">
                 {index + 1}
               </div>
-              <div className="w-[100px] h-[80px] rounded-md bg-amber-500 flex items-center justify-center text-gray-500 text-sm">
+              <div className="w-[100px] h-[80px] rounded-md bg-amber-500 dark:bg-amber-600 flex items-center justify-center">
                 <Image
                   src={`/img/${casino.button ?? ""}`}
                   alt={`${casino.name} logo`}
@@ -220,19 +220,19 @@ export default async function Component() {
                 />
               </div>
               <div className="flex-grow">
-                <h2 className="text-xl font-semibold mb-2">{casino.name}</h2>
+                <h2 className="text-xl font-semibold mb-2 dark:text-white">{casino.name}</h2>
                 <ul className="list-disc list-inside mb-4">
                   {casino.benefits.map((benefit, benefitIndex) => (
-                    <li key={benefitIndex} className="text-sm text-gray-600">
+                    <li key={benefitIndex} className="text-sm text-gray-600 dark:text-gray-300">
                       {benefit}
                     </li>
                   ))}
                 </ul>
               </div>
               <div className="w-full sm:w-1/3 mb-4 sm:mb-0">
-                <p className="text-sm text-gray-600">{casino.description}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300">{casino.description}</p>
               </div>
-              <button className="w-full sm:w-auto px-6 py-2 bg-emerald-600 text-white font-semibold rounded-md hover:bg-emerald-700 transition-colors duration-200 ease-in-out">
+              <button className="w-full sm:w-auto px-6 py-2 bg-emerald-600 dark:bg-emerald-500 text-white font-semibold rounded-md hover:bg-emerald-700 dark:hover:bg-emerald-600 transition-colors duration-200 ease-in-out">
                 <a
                   target="blank_"
                   rel="sponsored"
@@ -245,11 +245,11 @@ export default async function Component() {
           </li>
         ))}
       </ul>
-      <div className="bg-amber-50 border-2 mt-2 border-amber-400 shadow-md rounded-lg overflow-hidden">
-        <h1 className="text-3xl font-bold mb-6 text-center">
+      <div className="bg-amber-50 dark:bg-gray-800 border-2 mt-2 border-amber-400 dark:border-amber-600 shadow-md rounded-lg overflow-hidden">
+        <h1 className="text-3xl font-bold mb-6 text-center dark:text-white">
           {sitename} Newsletter Sign Up.
         </h1>
-        <p className="text-xl p-4  text-center">
+        <p className="text-xl p-4 text-center dark:text-gray-200">
           We update the list of casinos on a regular basis to ensure that you
           have the best possible experience. If you have any suggestions or
           feedback, please let us know! Also sign up to our newsletter to stay
