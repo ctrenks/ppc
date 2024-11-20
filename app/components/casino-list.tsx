@@ -265,13 +265,13 @@ export default async function Component() {
         </p>
         <NewsLetter siteId={siteId} />
 
-        <div className="hidden">
+        {/* <div className="hidden">
           <img
             className="w-1px h-1px"
             src="http://slotsandbonuses.com/playCasino/brango"
             alt="Casino List Banner"
           />
-        </div>
+        </div> */}
       </div>
     </div>
   );
