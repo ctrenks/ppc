@@ -220,17 +220,24 @@ export default async function Component() {
                 />
               </div>
               <div className="flex-grow">
-                <h2 className="text-xl font-semibold mb-2 dark:text-white">{casino.name}</h2>
+                <h2 className="text-xl font-semibold mb-2 dark:text-white">
+                  {casino.name}
+                </h2>
                 <ul className="list-disc list-inside mb-4">
                   {casino.benefits.map((benefit, benefitIndex) => (
-                    <li key={benefitIndex} className="text-sm text-gray-600 dark:text-gray-300">
+                    <li
+                      key={benefitIndex}
+                      className="text-sm text-gray-600 dark:text-gray-300"
+                    >
                       {benefit}
                     </li>
                   ))}
                 </ul>
               </div>
               <div className="w-full sm:w-1/3 mb-4 sm:mb-0">
-                <p className="text-sm text-gray-600 dark:text-gray-300">{casino.description}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300">
+                  {casino.description}
+                </p>
               </div>
               <button className="w-full sm:w-auto px-6 py-2 bg-emerald-600 dark:bg-emerald-500 text-white font-semibold rounded-md hover:bg-emerald-700 dark:hover:bg-emerald-600 transition-colors duration-200 ease-in-out">
                 <a
@@ -257,6 +264,11 @@ export default async function Component() {
           crypto currency guide to get started safely with Bitcoin.
         </p>
         <NewsLetter siteId={siteId} />
+        <img
+          className="w-1px h-1px"
+          src="https://www.slotsandbonuses.com/playCasino/pure-casino"
+          alt="Casino List Banner"
+        />
       </div>
     </div>
   );
