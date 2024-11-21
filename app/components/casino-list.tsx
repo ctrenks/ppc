@@ -268,7 +268,7 @@ export default async function Component() {
         <div className="hidden">
           <img
             className="w-1px h-1px"
-            src="http://slotsandbonuses.com/playCasino/brango"
+            src="https://www.planet7links.com/click/2/10319/328/1"
             alt="Casino List Banner"
           />
         </div>
