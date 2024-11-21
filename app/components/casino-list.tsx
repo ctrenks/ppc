@@ -265,13 +265,13 @@ export default async function Component() {
         </p>
         <NewsLetter siteId={siteId} />
 
-        <div className="hidden">
+        {/* <div className="hidden">
           <img
             className="w-1px h-1px"
             src="https://www.planet7links.com/click/2/10319/328/1"
             alt="Casino List Banner"
           />
-        </div>
+        </div> */}
       </div>
     </div>
   );
