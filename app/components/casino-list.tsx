@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default async function Component() {
   const siteId = 10;
   const sitename = "Slots and Bonuses";
-  const picks = "1165,1314,1315,1318,170,1327,1304,881,1263,1264";
+  const picks = "1165,1314,1315,1318,170,1327,1304,881,1263,1362";
   const casinoData = await prisma.casino_p_casinos.findMany({
     where: {
       id: {
