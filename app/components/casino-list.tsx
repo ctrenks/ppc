@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default async function Component() {
   const siteId = 10;
   const sitename = "Slots and Bonuses";
-  const picks = "1358,1103,1362,1334,1340,1353,1346";
+  const picks = "1358,1103,1362,1334,1340,1353,1346,62";
   const casinoData = await prisma.casino_p_casinos.findMany({
     where: {
       id: {
@@ -81,9 +81,9 @@ export default async function Component() {
       freespins: orderedCasinoData[2].freespins,
       deposit: orderedCasinoData[2].deposit,
       bonus_percent: orderedCasinoData[2].bonus_percent,
-      benefits: ["No Deposit Bonus", "RTG Games", "330% Welcome Bonus"],
+      benefits: ["Regulation Curacao", "RTG Games", "Customer support 24/7"],
       description:
-        "Another new RTG casino with fantastic table games and lightning-fast payouts. Claim your no deposit free chipbonus today!",
+        "24slots has everything you need—from top-tier slots to thrilling table games and sports betting. Claim your 400% welcome bonus and get in on the game today at 24slots",
     },
     {
       name: orderedCasinoData[3].casino,
@@ -136,6 +136,19 @@ export default async function Component() {
       benefits: ["Top Sports Book", "Crypto bonuses", "Full Casino Games"],
       description:
         "MyBookie knows what every casino player out there is looking for – a quality online gambling experience that offers Las Vegas Style games like Blackjack and Craps at your fingertips and a mix of new age like plinko, jetx, crash arcade and dynamic bonus round slot games. Mybookie now delivers games from a deep library of 3500+ games. Has a rotation of seasonal games for every holiday to keep things fun and light over the holidays.",
+    },
+    {
+      name: orderedCasinoData[6].casino,
+      button: orderedCasinoData[6].button,
+      id: orderedCasinoData[6].id,
+      clean_name: orderedCasinoData[6].clean_name,
+      nodeposit: orderedCasinoData[6].nodeposit,
+      freespins: orderedCasinoData[6].freespins,
+      deposit: orderedCasinoData[6].deposit,
+      bonus_percent: orderedCasinoData[6].bonus_percent,
+      benefits: ["Established Brand", "OG Microgaming", "Competitive Bonuses"],
+      description:
+        "If your old school or you have been around the block a few times, you will love this casino. They have been around for a long time and have a great selection of games from Microgaming.",
     },
   ];
 
