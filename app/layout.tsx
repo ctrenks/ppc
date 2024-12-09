@@ -14,8 +14,9 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Top 10 USA Casinos by USA players for 2024",
-  description: "Top New and Old USA Casinos for 2024",
+  title: "Canada's top ten casinos for December 2024",
+  description:
+    "Find the hottest deals for Canada players for the month of December 2024",
 };
 
 export default function RootLayout({

@@ -96,7 +96,7 @@ export default async function Component() {
       bonus_percent: orderedCasinoData[3].bonus_percent,
       benefits: ["High RTP Slots", "Weekly Promotions", "Loyalty Rewards"],
       description:
-        "Experience the thrill of winning big at Kats Casino, known for its high RTP slots and rewarding loyalty program. Take advantage of our weekly promotions!",
+        "Get ready to explore a handpicked selection of games that cater to your unique gaming interests. From Jackpot, Hold & Win, and Megaways Slots to Keno and Bingo, we’ve got a game for you!",
     },
     {
       name: orderedCasinoData[4].casino,
@@ -133,9 +133,9 @@ export default async function Component() {
       freespins: orderedCasinoData[6].freespins,
       deposit: orderedCasinoData[6].deposit,
       bonus_percent: orderedCasinoData[6].bonus_percent,
-      benefits: ["Many software providers", "Crypto bonuses", "Secure Banking"],
+      benefits: ["Top Sports Book", "Crypto bonuses", "Full Casino Games"],
       description:
-        "Try your luck at Bit Starz Casino, where progressive jackpots await. Crypto bonuses, all while benefiting from our secure banking options.",
+        "MyBookie knows what every casino player out there is looking for – a quality online gambling experience that offers Las Vegas Style games like Blackjack and Craps at your fingertips and a mix of new age like plinko, jetx, crash arcade and dynamic bonus round slot games. Mybookie now delivers games from a deep library of 3500+ games. Has a rotation of seasonal games for every holiday to keep things fun and light over the holidays.",
     },
   ];
 
