@@ -53,7 +53,7 @@ export default async function Component() {
         "Visa / MC and crypto payments",
       ],
       description:
-        "Experience the thrill of Vegas-style gaming with our vast selection of slots and table games. New players can enjoy a generous 400%welcome bonus to kickstart their journey.",
+        "Experience the thrill of Vegas-style gaming with our vast selection of slots and table games. New players can enjoy a generous 400% welcome bonus to kickstart their journey.",
     },
     {
       name: orderedCasinoData[1].casino,
@@ -64,9 +64,13 @@ export default async function Component() {
       freespins: orderedCasinoData[1].freespins,
       deposit: orderedCasinoData[1].deposit,
       bonus_percent: orderedCasinoData[1].bonus_percent,
-      benefits: ["120 Free Spins", "VIP Program", "RTG Slots"],
+      benefits: [
+        "Wide selection of game genres",
+        "Multiple crypto currencies",
+        "Live chat support is available 24/7",
+      ],
       description:
-        "Treat yourself like royalty at Heaps o Spins Casino. Our VIP program offers exclusive perks, while our mobile platform ensures you can play anytime, anywhere.",
+        "Oshi is an established brand with many available currencies (both crypto and fiat) and a wide selection of games.",
     },
     {
       name: orderedCasinoData[2].casino,
