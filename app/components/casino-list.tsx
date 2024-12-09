@@ -133,57 +133,6 @@ export default async function Component() {
       description:
         "Try your luck at Bit Starz Casino, where progressive jackpots await. Crypto bonuses, all while benefiting from our secure banking options.",
     },
-    {
-      name: orderedCasinoData[7].casino,
-      button: orderedCasinoData[7].button,
-      id: orderedCasinoData[7].id,
-      clean_name: orderedCasinoData[7].clean_name,
-      nodeposit: orderedCasinoData[7].nodeposit,
-      freespins: orderedCasinoData[7].freespins,
-      deposit: orderedCasinoData[7].deposit,
-      bonus_percent: orderedCasinoData[7].bonus_percent,
-      benefits: [
-        "175% plus 50 free spins",
-        "Multiple welcome bonuses",
-        "Fast Registration",
-      ],
-      description:
-        "Hit the slots and win big at 7Bit Casino! Enjoy hundreds of slots, a convenient mobile app, and fast registration.",
-    },
-    {
-      name: orderedCasinoData[8].casino,
-      button: orderedCasinoData[8].button,
-      id: orderedCasinoData[8].id,
-      clean_name: orderedCasinoData[8].clean_name,
-      nodeposit: orderedCasinoData[8].nodeposit,
-      freespins: orderedCasinoData[8].freespins,
-      deposit: orderedCasinoData[8].deposit,
-      bonus_percent: orderedCasinoData[8].bonus_percent,
-      benefits: [
-        "400% bonus plus 120 Free Spins",
-        "Betsoft, Rival and more",
-        "Great customer loyalty",
-      ],
-      description:
-        "A great new casino trying to be the best USA casino possible, with large bonuses and vast amount of slots all open to US players.",
-    },
-    {
-      name: orderedCasinoData[9].casino,
-      button: orderedCasinoData[9].button,
-      id: orderedCasinoData[9].id,
-      clean_name: orderedCasinoData[9].clean_name,
-      nodeposit: orderedCasinoData[9].nodeposit,
-      freespins: orderedCasinoData[9].freespins,
-      deposit: orderedCasinoData[9].deposit,
-      bonus_percent: orderedCasinoData[9].bonus_percent,
-      benefits: [
-        "$2000 bonus with 100 free spins",
-        "Arrows Edge, Rival and more",
-        "Multiple bonuses as a player",
-      ],
-      description:
-        "Pure casino does a great job in offering the top games and bonuses USA players are looking for.",
-    },
   ];
 
   return (
