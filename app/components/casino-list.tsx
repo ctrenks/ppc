@@ -4,14 +4,14 @@ import NewsLetter from "./NewsLetter";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "USA top ten casinos for November 2024",
+  title: "Canada's top ten casinos for December 2024",
   description:
-    "Find the hottest deals for USA players for the month og November 2024",
+    "Find the hottest deals for Canada players for the month of December 2024",
 };
 export default async function Component() {
   const siteId = 10;
   const sitename = "Slots and Bonuses";
-  const picks = "1165,1314,1315,1318,170,1327,1304,881,1263,1362";
+  const picks = "1358,1103,1362,1334,1340,1353,1346";
   const casinoData = await prisma.casino_p_casinos.findMany({
     where: {
       id: {
