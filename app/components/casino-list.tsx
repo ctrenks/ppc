@@ -12,10 +12,12 @@ export default async function Component() {
   const siteId = 10;
   const sitename = "Slots and Bonuses";
   const picks = "1358,1304,1103,1362,1334,1340,1353,1346,62";
+  const picksArray = picks.split(",").map(Number);
+
   const casinoData = await prisma.casino_p_casinos.findMany({
     where: {
       id: {
-        in: picks.split(",").map((id) => parseInt(id)),
+        in: picksArray,
       },
     },
     select: {
@@ -32,10 +34,11 @@ export default async function Component() {
     },
   });
 
-  // reorder casinoData to match picks order
-  const orderedCasinoData = casinoData.sort((a, b) => {
-    return picks.indexOf(a.id.toString()) - picks.indexOf(b.id.toString());
-  });
+  const casinoMap = new Map(casinoData.map(casino => [casino.id, casino]));
+  
+  const orderedCasinoData = picksArray
+    .map(id => casinoMap.get(id))
+    .filter((casino): casino is NonNullable<typeof casino> => casino !== undefined);
 
   const casinos = [
     {
@@ -67,27 +70,10 @@ export default async function Component() {
       benefits: [
         "300% up to 2000 CAD\\5 BTC + 200 FS ",
         "Weekly Jackpots",
-        "Instant Withdrawals",
-      ],
-      description:
-        "Experience the best crypto casino by AskGamblers, 400% Welcome bonus, 6000 games, Instant withdrawals, Free weekly jackpots",
-    },
-    {
-      name: orderedCasinoData[1].casino,
-      button: orderedCasinoData[1].button,
-      id: orderedCasinoData[1].id,
-      clean_name: orderedCasinoData[1].clean_name,
-      nodeposit: orderedCasinoData[1].nodeposit,
-      freespins: orderedCasinoData[1].freespins,
-      deposit: orderedCasinoData[1].deposit,
-      bonus_percent: orderedCasinoData[1].bonus_percent,
-      benefits: [
-        "Wide selection of game genres",
-        "Multiple crypto currencies",
         "Live chat support is available 24/7",
       ],
       description:
-        "Oshi is an established brand with many available currencies (both crypto and fiat) and a wide selection of games.",
+        "Experience the best crypto casino by AskGamblers, 400% Welcome bonus, 6000 games, Instant withdrawals, Free weekly jackpots",
     },
     {
       name: orderedCasinoData[2].casino,
@@ -98,9 +84,13 @@ export default async function Component() {
       freespins: orderedCasinoData[2].freespins,
       deposit: orderedCasinoData[2].deposit,
       bonus_percent: orderedCasinoData[2].bonus_percent,
-      benefits: ["Regulation Curacao", "RTG Games", "Customer support 24/7"],
+      benefits: [
+        "Wide selection of game genres",
+        "Multiple crypto currencies",
+        "Live chat support is available 24/7",
+      ],
       description:
-        "24slots has everything you need—from top-tier slots to thrilling table games and sports betting. Claim your 400% welcome bonus and get in on the game today at 24slots",
+        "Oshi is an established brand with many available currencies (both crypto and fiat) and a wide selection of games.",
     },
     {
       name: orderedCasinoData[3].casino,
@@ -111,9 +101,9 @@ export default async function Component() {
       freespins: orderedCasinoData[3].freespins,
       deposit: orderedCasinoData[3].deposit,
       bonus_percent: orderedCasinoData[3].bonus_percent,
-      benefits: ["High RTP Slots", "Weekly Promotions", "Loyalty Rewards"],
+      benefits: ["Regulation Curacao", "RTG Games", "Customer support 24/7"],
       description:
-        "Get ready to explore a handpicked selection of games that cater to your unique gaming interests. From Jackpot, Hold & Win, and Megaways Slots to Keno and Bingo, we’ve got a game for you!",
+        "24slots has everything you need—from top-tier slots to thrilling table games and sports betting. Claim your 400% welcome bonus and get in on the game today at 24slots",
     },
     {
       name: orderedCasinoData[4].casino,
@@ -124,9 +114,9 @@ export default async function Component() {
       freespins: orderedCasinoData[4].freespins,
       deposit: orderedCasinoData[4].deposit,
       bonus_percent: orderedCasinoData[4].bonus_percent,
-      benefits: ["Long time favorite", "Crypto-Friendly", "24/7 Live Chat"],
+      benefits: ["High RTP Slots", "Weekly Promotions", "Loyalty Rewards"],
       description:
-        "iNet Bet Casino offers an exclusive gaming experience with unique table games, crypto payment options, and 24/7 live chat support.",
+        "Get ready to explore a handpicked selection of games that cater to your unique gaming interests. From Jackpot, Hold & Win, and Megaways Slots to Keno and Bingo, we’ve got a game for you!",
     },
     {
       name: orderedCasinoData[5].casino,
@@ -137,32 +127,45 @@ export default async function Component() {
       freespins: orderedCasinoData[5].freespins,
       deposit: orderedCasinoData[5].deposit,
       bonus_percent: orderedCasinoData[5].bonus_percent,
+      benefits: ["Long time favorite", "Crypto-Friendly", "24/7 Live Chat"],
+      description:
+        "iNet Bet Casino offers an exclusive gaming experience with unique table games, crypto payment options, and 24/7 live chat support.",
+    },
+    {
+      name: orderedCasinoData[6].casino,
+      button: orderedCasinoData[6].button,
+      id: orderedCasinoData[6].id,
+      clean_name: orderedCasinoData[6].clean_name,
+      nodeposit: orderedCasinoData[6].nodeposit,
+      freespins: orderedCasinoData[6].freespins,
+      deposit: orderedCasinoData[6].deposit,
+      bonus_percent: orderedCasinoData[6].bonus_percent,
       benefits: ["RIVAL Games", "500% Welcome Bonus", "No Deposit Bonus"],
       description:
         "Decode Casino offers a unique gaming experience with multiple bonuses, tournament events, and instant play games.",
     },
     {
-      name: orderedCasinoData[6].casino,
-      button: orderedCasinoData[6].button,
-      id: orderedCasinoData[6].id,
-      clean_name: orderedCasinoData[6].clean_name,
-      nodeposit: orderedCasinoData[6].nodeposit,
-      freespins: orderedCasinoData[6].freespins,
-      deposit: orderedCasinoData[6].deposit,
-      bonus_percent: orderedCasinoData[6].bonus_percent,
+      name: orderedCasinoData[7].casino,
+      button: orderedCasinoData[7].button,
+      id: orderedCasinoData[7].id,
+      clean_name: orderedCasinoData[7].clean_name,
+      nodeposit: orderedCasinoData[7].nodeposit,
+      freespins: orderedCasinoData[7].freespins,
+      deposit: orderedCasinoData[7].deposit,
+      bonus_percent: orderedCasinoData[7].bonus_percent,
       benefits: ["Top Sports Book", "Crypto bonuses", "Full Casino Games"],
       description:
         "MyBookie knows what every casino player out there is looking for – a quality online gambling experience that offers Las Vegas Style games like Blackjack and Craps at your fingertips and a mix of new age like plinko, jetx, crash arcade and dynamic bonus round slot games. Mybookie now delivers games from a deep library of 3500+ games. Has a rotation of seasonal games for every holiday to keep things fun and light over the holidays.",
     },
     {
-      name: orderedCasinoData[6].casino,
-      button: orderedCasinoData[6].button,
-      id: orderedCasinoData[6].id,
-      clean_name: orderedCasinoData[6].clean_name,
-      nodeposit: orderedCasinoData[6].nodeposit,
-      freespins: orderedCasinoData[6].freespins,
-      deposit: orderedCasinoData[6].deposit,
-      bonus_percent: orderedCasinoData[6].bonus_percent,
+      name: orderedCasinoData[8].casino,
+      button: orderedCasinoData[8].button,
+      id: orderedCasinoData[8].id,
+      clean_name: orderedCasinoData[8].clean_name,
+      nodeposit: orderedCasinoData[8].nodeposit,
+      freespins: orderedCasinoData[8].freespins,
+      deposit: orderedCasinoData[8].deposit,
+      bonus_percent: orderedCasinoData[8].bonus_percent,
       benefits: ["Established Brand", "OG Microgaming", "Competitive Bonuses"],
       description:
         "If your old school or you have been around the block a few times, you will love this casino. They have been around for a long time and have a great selection of games from Microgaming.",
