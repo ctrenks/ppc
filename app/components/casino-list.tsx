@@ -54,7 +54,7 @@ export default async function Component() {
       bonus_percent: orderedCasinoData[0].bonus_percent,
       benefits: [
         "Hundreds of slots",
-        "Oee Hell of a bonus",
+        "One Hell of a bonus",
         "Great payment options",
       ],
       description:
