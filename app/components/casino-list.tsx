@@ -34,11 +34,13 @@ export default async function Component() {
     },
   });
 
-  const casinoMap = new Map(casinoData.map(casino => [casino.id, casino]));
-  
+  const casinoMap = new Map(casinoData.map((casino) => [casino.id, casino]));
+
   const orderedCasinoData = picksArray
-    .map(id => casinoMap.get(id))
-    .filter((casino): casino is NonNullable<typeof casino> => casino !== undefined);
+    .map((id) => casinoMap.get(id))
+    .filter(
+      (casino): casino is NonNullable<typeof casino> => casino !== undefined
+    );
 
   const casinos = [
     {
@@ -127,9 +129,9 @@ export default async function Component() {
       freespins: orderedCasinoData[5].freespins,
       deposit: orderedCasinoData[5].deposit,
       bonus_percent: orderedCasinoData[5].bonus_percent,
-      benefits: ["Long time favorite", "Crypto-Friendly", "24/7 Live Chat"],
+      benefits: ["Christmas Promotions", "Crypto-Friendly", "24/7 Live Chat"],
       description:
-        "iNet Bet Casino offers an exclusive gaming experience with unique table games, crypto payment options, and 24/7 live chat support.",
+        "Fortune Panda delivers cutting edge games both live and online with non stop promotions for betting players",
     },
     {
       name: orderedCasinoData[6].casino,
