@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default async function Component() {
   const siteId = 10;
   const sitename = "Slots and Bonuses";
-  const picks = "1358,1103,1362,1334,1340,1353,1346,62";
+  const picks = "1358,1304,1103,1362,1334,1340,1353,1346,62";
   const casinoData = await prisma.casino_p_casinos.findMany({
     where: {
       id: {
@@ -54,6 +54,23 @@ export default async function Component() {
       ],
       description:
         "Experience the thrill of Vegas-style gaming with our vast selection of slots and table games. New players can enjoy a generous 400% welcome bonus to kickstart their journey.",
+    },
+    {
+      name: orderedCasinoData[1].casino,
+      button: orderedCasinoData[1].button,
+      id: orderedCasinoData[1].id,
+      clean_name: orderedCasinoData[1].clean_name,
+      nodeposit: orderedCasinoData[1].nodeposit,
+      freespins: orderedCasinoData[1].freespins,
+      deposit: orderedCasinoData[1].deposit,
+      bonus_percent: orderedCasinoData[1].bonus_percent,
+      benefits: [
+        "300% up to 2000 CAD\\5 BTC + 200 FS ",
+        "Weekly Jackpots",
+        "Instant Withdrawals",
+      ],
+      description:
+        "Experience the best crypto casino by AskGamblers, 400% Welcome bonus, 6000 games, Instant withdrawals, Free weekly jackpots",
     },
     {
       name: orderedCasinoData[1].casino,
