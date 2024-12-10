@@ -53,12 +53,12 @@ export default async function Component() {
       deposit: orderedCasinoData[0].deposit,
       bonus_percent: orderedCasinoData[0].bonus_percent,
       benefits: [
-        "5 US Game Providers",
-        "$4000 Welcome Bonus at 400%",
-        "Visa / MC and crypto payments",
+        "Hundreds of slots",
+        "Oee Hell of a bonus",
+        "Great payment options",
       ],
       description:
-        "Experience the thrill of Vegas-style gaming with our vast selection of slots and table games. New players can enjoy a generous 400% welcome bonus to kickstart their journey.",
+        "Experience the thrill of Vegas-style gaming with our vast selection of slots and table games. New players can enjoy a generous welcome bonus to kickstart their journey and more promos as you play.",
     },
     {
       name: orderedCasinoData[1].casino,
