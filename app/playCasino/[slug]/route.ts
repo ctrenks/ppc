@@ -32,12 +32,13 @@ export async function GET(
     if (!casino) {
       return NextResponse.redirect(new URL("/", request.url));
     }
-
+    // console.log(casino);
     // Record the visit if we have a casino ID
     if (casino.id) {
       const outbounding = await prisma.outbounding.findFirst({
         where: {
           casinoId: casino.id,
+          ip: ip,
         },
       });
       if (!outbounding) {
