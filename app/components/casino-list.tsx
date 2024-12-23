@@ -240,6 +240,27 @@ export default async function Component() {
           </li>
         ))}
       </ul>
+      <div className="text-center p-6 bg-amber-50 dark:bg-gray-800 border-2 mt-2 border-amber-400 dark:border-amber-600 shadow-md rounded-lg overflow-hidden">
+        <h1 className="text-3xl font-bold mb-6 text-center dark:text-white">
+          Want to beat slots? Try this for free
+        </h1>
+        <p>
+          Try the AI Telegram bot that alerts you when slots at certain casinos
+          are trending over 100% RTP. Exclusive free trial to prove the concept.
+        </p>
+        <p>
+          {" "}
+          <button className="w-full sm:w-auto px-6 py-2 bg-emerald-600 dark:bg-emerald-500 text-white font-semibold rounded-md hover:bg-emerald-700 dark:hover:bg-emerald-600 transition-colors duration-200 ease-in-out">
+            <a
+              target="blank_"
+              rel="sponsored"
+              href="https://www.rtpslotbot.com/"
+            >
+              Try the AI Bot Now
+            </a>
+          </button>
+        </p>
+      </div>
       <div className="bg-amber-50 dark:bg-gray-800 border-2 mt-2 border-amber-400 dark:border-amber-600 shadow-md rounded-lg overflow-hidden">
         <h1 className="text-3xl font-bold mb-6 text-center dark:text-white">
           {sitename} Newsletter Sign Up.

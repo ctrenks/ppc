@@ -1,6 +1,8 @@
 import CasinoList from "@/app/components/casino-list";
 
-export default function Home() {
+
+export default async function Home() {
+
   return (
     <div>
       <CasinoList />
