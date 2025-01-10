@@ -189,6 +189,31 @@ export default async function Component() {
           our guide on using Bitcoin today.
         </p>
       </div>
+      <div className="text-center p-6 bg-amber-50 dark:bg-gray-800 border-2 mt-2 border-amber-400 dark:border-amber-600 shadow-md rounded-lg overflow-hidden">
+        <h1 className="text-3xl font-bold mb-6 text-center dark:text-white">
+          Get over 100% Payout on Slot Machines right now for Free
+        </h1>
+        <p>
+          With AI we are identifing trends on REAL ONLINE SLOT MACHINES that are
+          paying out over 120+ return to player. 100% risk free with no sign up,
+          try the AI bot now to be alerted to casinos with a slot paying out
+          real money. This is delivered via Telegram, free and super easy to use
+          on your phone or PC, and allows instant alert updates. 2 Weeks
+          completey free no personal details needed at all.
+        </p>
+        <p>
+          {" "}
+          <button className="w-full sm:w-auto px-6 py-2 bg-emerald-600 dark:bg-emerald-500 text-white font-semibold rounded-md hover:bg-emerald-700 dark:hover:bg-emerald-600 transition-colors duration-200 ease-in-out">
+            <a
+              target="blank_"
+              rel="sponsored"
+              href="https://www.rtpslotbot.com/"
+            >
+              Learn more about the AI bot
+            </a>
+          </button>
+        </p>
+      </div>
       <ul className="space-y-6">
         {casinos.map((casino, index) => (
           <li
