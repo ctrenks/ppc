@@ -188,7 +188,7 @@ export default async function Component() {
           are missing out, join our newsletter at the bottom of the page to get
           our guide on using Bitcoin today.
         </p>
-      </div>
+      {/* </div>
       <div className="text-center p-6 bg-amber-50 dark:bg-gray-800 border-2 mt-2 border-amber-400 dark:border-amber-600 shadow-md rounded-lg overflow-hidden">
         <h1 className="text-3xl font-bold mb-6 text-center dark:text-white">
           Get over 100% Payout on Slot Machines right now for Free
@@ -213,7 +213,7 @@ export default async function Component() {
             </a>
           </button>
         </p>
-      </div>
+      </div> */}
       <ul className="space-y-6">
         {casinos.map((casino, index) => (
           <li
