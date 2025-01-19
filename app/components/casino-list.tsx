@@ -178,7 +178,7 @@ export default async function Component() {
     <div className="container mx-auto px-4 py-8">
       <div className="bg-amber-50 dark:bg-gray-800 border-2 mb-2 border-amber-400 dark:border-amber-600 shadow-md rounded-lg overflow-hidden">
         <h1 className="text-3xl font-bold mb-6 text-center dark:text-white">
-          Top Canadian December Casinos
+          Top Canadian January Casinos
         </h1>
         <p className="text-xl p-4 text-center dark:text-gray-200">
           Delivering the top casinos for Canadian players, we believe that you
