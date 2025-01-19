@@ -4,9 +4,9 @@ import NewsLetter from "./NewsLetter";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Canada's top ten casinos for December 2024",
+  title: "Canada's top ten casinos for January 2025",
   description:
-    "Find the hottest deals for Canada players for the month of December 2024",
+    "Find the hottest deals for Canada players for  the month of January 2025",
 };
 export default async function Component() {
   const siteId = 10;
