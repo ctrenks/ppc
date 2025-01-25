@@ -55,12 +55,11 @@ async function getUniqueValues() {
   };
 }
 
-interface PageProps {
-  params: { slug: string };
+export default async function AdminStats({
+  searchParams,
+}: {
   searchParams: { [key: string]: string | string[] | undefined };
-}
-
-export default async function AdminStats({ searchParams }: PageProps) {
+}) {
   const geo =
     typeof searchParams.geo === "string" ? searchParams.geo : undefined;
   const referer =
