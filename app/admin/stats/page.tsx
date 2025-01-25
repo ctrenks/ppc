@@ -55,12 +55,17 @@ async function getUniqueValues() {
   };
 }
 
-export default async function AdminStats({
-  searchParams,
-}: {
-  searchParams: { geo?: string; referer?: string };
-}) {
-  const { geo, referer } = searchParams;
+interface PageProps {
+  params: { slug: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+}
+
+export default async function AdminStats({ searchParams }: PageProps) {
+  const geo =
+    typeof searchParams.geo === "string" ? searchParams.geo : undefined;
+  const referer =
+    typeof searchParams.referer === "string" ? searchParams.referer : undefined;
+
   const clicks = await getClickStats(geo, referer);
   const { geoLocations, referers } = await getUniqueValues();
 
