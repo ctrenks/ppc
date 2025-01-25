@@ -26,6 +26,11 @@ export async function GET(
       },
       include: {
         ppc: true,
+        ppc_links: {
+          where: {
+            geo: visitorCountry,
+          },
+        },
       },
     });
 
@@ -55,6 +60,7 @@ export async function GET(
     }
 
     // Redirect to PPC URL if exists, otherwise casino URL
+    console.log("ppc-links", visitorCountry, casino.ppc_links[0]);
     console.log(casino.ppc?.[0]?.ppc_url);
     const redirectUrl = casino.ppc?.[0]?.ppc_url ?? casino.url;
 

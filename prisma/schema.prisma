@@ -20,10 +20,11 @@ model User {
   accounts      Account[]
   sessions      Session[]
   Authenticator Authenticator[]
-  managerUser   Affiliate[]
-  affiliates    UserAffiliate[]
-  createdAt     DateTime        @default(now())
-  updatedAt     DateTime        @updatedAt
+
+  affiliates UserAffiliate[]
+  bids       Bid[]
+  createdAt  DateTime        @default(now())
+  updatedAt  DateTime        @updatedAt
 }
 
 model Account {
@@ -91,15 +92,14 @@ model Terms {
 }
 
 model Affiliate {
-  id          Int                @id @default(autoincrement())
-  aff_name    String
-  aff_url     String
-  manager     String?
-  block       Int?               @default(0)
-  createdAt   DateTime           @default(now())
-  casinos     casino_p_casinos[]
-  managers    UserAffiliate[]
-  managerUser User?              @relation(fields: [manager], references: [id], onDelete: Cascade)
+  id        Int                @id @default(autoincrement())
+  aff_name  String
+  aff_url   String
+  manager   String?
+  block     Int?               @default(0)
+  createdAt DateTime           @default(now())
+  casinos   casino_p_casinos[]
+  managers  UserAffiliate[]
 }
 
 model UserAffiliate {
@@ -152,19 +152,23 @@ model casino_p_casinos {
   lcb_url                   String?
   timestamp                 Int?    @default(0)
 
-  affiliate     Affiliate?               @relation(fields: [aff_id], references: [id])
-  banklist      casino_p_bank_connect[]
-  bonuses       casino_p_bonus[]
-  jurisdictions casino_p_jurisdictions[]
-  casino_geo    casino_p_restrictions[]
-  softwares     casino_p_software_link[]
-  ppc          casino_p_ppc[]
-  outbounding   outbounding[]
+  affiliate       Affiliate?               @relation(fields: [aff_id], references: [id])
+  banklist        casino_p_bank_connect[]
+  bonuses         casino_p_bonus[]
+  jurisdictions   casino_p_jurisdictions[]
+  casino_geo      casino_p_restrictions[]
+  softwares       casino_p_software_link[]
+  ppc             casino_p_ppc[]
+  outbounding     outbounding[]
+  casinoMappings  CasinoNameMapping[]
+  importedBonuses ImportedBonus[]
+  unifiedBonuses  UnifiedBonus[]
+  ppc_links       ppc_links[]
 }
 
 model casino_p_ppc {
-  id Int @id @default(autoincrement())
-  casino Int
+  id      Int               @id @default(autoincrement())
+  casino  Int
   ppc_url String
   casinos casino_p_casinos? @relation(fields: [casino], references: [id], onDelete: Cascade)
 }
@@ -180,6 +184,7 @@ model casino_p_software {
   vercel_image_url  String?
   vercel_image_size Int?
   slots_launch_id   Int?
+  games             casino_p_games[]
   softwarelist      casino_p_software_link[]
 }
 
@@ -338,11 +343,333 @@ model outbounding {
 }
 
 model Newsletter {
-  id                Int      @id @default(autoincrement())
+  id                Int     @id @default(autoincrement())
   email             String
   siteId            Int
-  verified          Int      @default(0)
-  verificationToken String?  @unique
-  
+  verified          Int     @default(0)
+  verificationToken String? @unique
+
   @@unique([email, siteId])
+}
+
+model ImportedBonus {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Basic Information
+  externalId   String?           @unique // data-bonus-id from the website
+  title        String
+  casino       String
+  casino_id    Int? // Changed to match Prisma's conventional naming
+  mappedCasino casino_p_casinos? @relation(fields: [casino_id], references: [id]) // Updated relation field name
+  code         String?
+  validUntil   String
+  publishDate  String
+
+  // Stats
+  visits   Int @default(0)
+  likes    Int @default(0)
+  dislikes Int @default(0)
+
+  // Attributes
+  players    String
+  wagering   String
+  minDeposit String
+  maxCashOut String
+  gameTypes  String
+
+  // Tournament Data
+  isTournament     Boolean   @default(false)
+  tournamentType   String? // SLOTS, POKER, BLACKJACK, etc.
+  registrationDate DateTime? // Registration date for tournaments
+  startDate        DateTime?
+  endDate          DateTime?
+  prizePool        Decimal?  @db.Decimal(10, 2)
+  entryFee         Decimal?  @db.Decimal(10, 2)
+  minPlayers       Int?
+  maxPlayers       Int?
+  currentPlayers   Int?      @default(0)
+  tournamentStatus String? // UPCOMING, ACTIVE, COMPLETED, CANCELLED
+  gameId           Int? // Reference to specific game if tournament is game-specific
+
+  // Notes/Terms
+  notes String @db.Text
+
+  // Related Data
+  validGames ImportedValidGame[]
+  ValidGame  ValidGame[]
+
+  @@index([casino])
+  @@index([externalId])
+  @@index([casino_id])
+  @@index([isTournament])
+  @@index([tournamentStatus])
+  @@index([startDate, endDate])
+}
+
+model ImportedValidGame {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name     String
+  imageUrl String
+  slot_id  Int?
+
+  // Relation to Bonus
+  bonus   ImportedBonus @relation(fields: [bonusId], references: [id], onDelete: Cascade)
+  bonusId String
+
+  @@index([bonusId])
+  @@index([slot_id])
+}
+
+model ValidGame {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name     String
+  imageUrl String
+  slot_id  Int? // Reference to casino_p_games
+
+  // Relation to ImportedBonus
+  bonus   ImportedBonus @relation(fields: [bonusId], references: [id], onDelete: Cascade)
+  bonusId String
+
+  @@index([bonusId])
+  @@index([slot_id])
+}
+
+model CasinoNameMapping {
+  id           Int              @id @default(autoincrement())
+  importedName String
+  systemName   String
+  casinoId     Int
+  casino       casino_p_casinos @relation(fields: [casinoId], references: [id])
+  active       Boolean          @default(true)
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+
+  @@unique([importedName, systemName], name: "importedName_systemName")
+  @@index([importedName])
+  @@index([systemName])
+  @@index([casinoId])
+}
+
+model casino_p_games_image {
+  game_image_id       Int            @id @default(0)
+  game_image_url      String
+  vercel_image_url    String?
+  vercel_image_size   Int?
+  game_image_alt_text String?
+  game_image_name     String?
+  game_image_parent   Int
+  game_image_position Int?
+  w                   Int?
+  h                   Int?
+  tw                  Int?
+  th                  Int?
+  status              String?
+  game_images         casino_p_games @relation(fields: [game_image_parent], references: [game_id], onDelete: Cascade)
+}
+
+model casino_p_slot_details {
+  id         Int            @id @default(0)
+  parent     Int
+  theme      String
+  slot_theme casino_p_games @relation(fields: [parent], references: [game_id], onDelete: Cascade)
+
+  @@index(fields: parent)
+}
+
+model casino_p_games {
+  game_id                Int                           @id @default(0)
+  game_land_based        String?
+  game_name              String
+  game_software          Int
+  game_added             String?
+  game_progressive       Int?
+  game_random_jackpot    Int?
+  game_demo              String?
+  game_min_bet           String?
+  game_max_bet           String?
+  game_line_bet          String?
+  game_max_payout        String?
+  game_bonus_bet         String?
+  game_decks             Int?
+  game_live_dealer       Int?
+  game_reels             Int?
+  game_lines             Int?
+  game_multi_spin        Int?
+  game_bonus_round       Int?
+  game_bonus_multipliers Int?
+  game_scatters          Int?
+  game_free_spins        Int?
+  game_wild_slot         Int?
+  game_theme             String?
+  game_hands             Int?
+  game_wild_cards        Int?
+  status                 Int?
+  game_image             String?
+  game_updated           String?
+  game_clean_name        String?
+  game_payout            String?
+  game_fixed_bet         String?
+  vercel_image_url       String?
+  vercel_image_size      Int?
+  review                 casino_p_descriptions_games[]
+  software               casino_p_software             @relation(fields: [game_software], references: [id])
+
+  game_images casino_p_games_image[]
+  slot_theme  casino_p_slot_details[]
+
+  @@index(fields: [game_software, vercel_image_url, vercel_image_size])
+}
+
+model casino_p_descriptions_games {
+  id               Int            @id @default(autoincrement())
+  parent           Int
+  title            String?
+  description      String?
+  ordered          Int?
+  type             Int?
+  description_link String?
+  record           String?
+  static           Int?
+  author_id        String?
+  review           casino_p_games @relation(fields: [parent], references: [game_id], onDelete: Cascade, map: "description_game_fk")
+  updated_at       DateTime?
+
+  @@index(fields: parent)
+}
+
+model slotNameMapping {
+  id           Int      @id @default(autoincrement())
+  importedName String
+  systemName   String
+  slotId       Int
+  active       Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@unique([importedName, systemName])
+  @@index([slotId])
+  @@index([importedName])
+}
+
+model Position {
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  auctions    Auction[]
+}
+
+model Auction {
+  id         Int      @id @default(autoincrement())
+  positionId Int
+  startDate  DateTime
+  endDate    DateTime
+  minBid     Float
+  status     String   @default("PENDING") // PENDING, ACTIVE, COMPLETED, CANCELLED
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  position   Position @relation(fields: [positionId], references: [id], onDelete: Cascade)
+  bids       Bid[]
+
+  @@index([positionId])
+}
+
+model Bid {
+  id        Int      @id @default(autoincrement())
+  auctionId Int
+  userId    String
+  amount    Float
+  createdAt DateTime @default(now())
+  auction   Auction  @relation(fields: [auctionId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([auctionId])
+  @@index([userId])
+}
+
+model UnifiedBonus {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Casino Information
+  casinoId        Int?
+  casinoName      String
+  casinoCleanName String?
+  casinoButton    String?
+  casino          casino_p_casinos? @relation(fields: [casinoId], references: [id])
+
+  // Bonus Information
+  title       String
+  code        String?
+  validUntil  String?
+  publishDate String?
+
+  // Bonus Type and Details
+  bonusType       String // FREESPINS, NODEPOSIT, DEPOSIT, DEPOSIT_FREESPINS, TOURNAMENT
+  freespins       Int? // Number of free spins if applicable
+  depositAmount   Float? // Required deposit amount if applicable
+  bonusAmount     Float? // Bonus amount for deposit bonuses
+  percentage      Int? // Bonus percentage for deposit matches
+  noDepositAmount Float? // Amount for no deposit bonuses
+  maxBet          Float? // Maximum bet allowed with bonus
+  setBet          Float? // Set bet amount for free spins
+  previousDeposit Boolean? // Whether a previous deposit is required
+
+  // Tournament Specific Fields
+  isTournament     Boolean   @default(false)
+  tournamentType   String? // SLOTS, POKER, BLACKJACK, etc.
+  startDate        DateTime?
+  endDate          DateTime?
+  prizePool        Decimal?  @db.Decimal(10, 2)
+  entryFee         Decimal?  @db.Decimal(10, 2)
+  currentPlayers   Int?      @default(0)
+  tournamentStatus String? // UPCOMING, ACTIVE, COMPLETED, CANCELLED
+
+  // Terms and Conditions
+  wagering   String?
+  minDeposit String?
+  maxCashOut String?
+  players    String?
+  notes      String? @db.Text
+
+  // Valid Games/Slots Array (stored as JSON)
+  validGames Json? // Array of {name, image, cleanName}
+
+  // Stats
+  visits   Int @default(0)
+  likes    Int @default(0)
+  dislikes Int @default(0)
+
+  // Source tracking
+  importedBonusId String? @unique // Reference to original imported bonus if this was imported
+  sourceType      String // MANUAL, IMPORTED, API
+
+  @@index([casinoId])
+  @@index([bonusType])
+  @@index([isTournament])
+  @@index([tournamentStatus])
+  @@index([sourceType])
+  @@index([validUntil])
+}
+
+model ppc_links {
+  id        Int               @id @default(autoincrement())
+  casino_id Int
+  geo       String           @db.Char(2)  // 2 letter country code
+  url       String
+  casino    casino_p_casinos @relation(fields: [casino_id], references: [id], onDelete: Cascade)
+
+  @@unique([casino_id, geo], name: "casino_id_geo")  // Named composite unique constraint
+  @@index([casino_id])
+  @@index([geo])
 }
