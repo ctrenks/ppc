@@ -55,11 +55,11 @@ async function getUniqueValues() {
   };
 }
 
-type Props = {
-  searchParams?: Record<string, string | string[] | undefined>;
-};
-
-export default async function AdminStats({ searchParams = {} }: Props) {
+async function StatsContent({
+  searchParams,
+}: {
+  searchParams: Record<string, string | string[] | undefined>;
+}) {
   const geo =
     typeof searchParams.geo === "string" ? searchParams.geo : undefined;
   const referer =
@@ -130,4 +130,13 @@ export default async function AdminStats({ searchParams = {} }: Props) {
       </div>
     </div>
   );
+}
+
+export default async function AdminStats({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  const resolvedParams = await searchParams;
+  return <StatsContent searchParams={resolvedParams} />;
 }
