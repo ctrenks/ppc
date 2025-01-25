@@ -1,29 +1,41 @@
 "use client";
 
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
 interface ClickFiltersProps {
-  onFilterChange: (filters: { geo?: string; referer?: string }) => void;
   geoLocations: string[];
   referers: string[];
 }
 
 export default function ClickFilters({
-  onFilterChange,
   geoLocations,
   referers,
 }: ClickFiltersProps) {
-  const [selectedGeo, setSelectedGeo] = useState<string>("");
-  const [selectedReferer, setSelectedReferer] = useState<string>("");
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const [selectedGeo, setSelectedGeo] = useState<string>(
+    searchParams.get("geo") || ""
+  );
+  const [selectedReferer, setSelectedReferer] = useState<string>(
+    searchParams.get("referer") || ""
+  );
+
+  const updateFilters = (geo: string, referer: string) => {
+    const params = new URLSearchParams();
+    if (geo) params.set("geo", geo);
+    if (referer) params.set("referer", referer);
+    router.push(`/admin/stats?${params.toString()}`);
+  };
 
   const handleGeoChange = (geo: string) => {
     setSelectedGeo(geo);
-    onFilterChange({ geo, referer: selectedReferer });
+    updateFilters(geo, selectedReferer);
   };
 
   const handleRefererChange = (referer: string) => {
     setSelectedReferer(referer);
-    onFilterChange({ geo: selectedGeo, referer });
+    updateFilters(selectedGeo, referer);
   };
 
   return (

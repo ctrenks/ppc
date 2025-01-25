@@ -69,11 +69,7 @@ export default async function AdminStats({
       <h1 className="text-3xl font-bold mb-6">Click Analytics</h1>
 
       <Suspense fallback={<div>Loading filters...</div>}>
-        <ClickFilters
-          geoLocations={geoLocations}
-          referers={referers}
-          onFilterChange={() => {}}
-        />
+        <ClickFilters geoLocations={geoLocations} referers={referers} />
       </Suspense>
 
       <div className="overflow-x-auto">
