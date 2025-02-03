@@ -118,7 +118,7 @@ export default async function Component() {
       bonus_percent: orderedCasinoData[4].bonus_percent,
       benefits: ["High RTP Slots", "Weekly Promotions", "Loyalty Rewards"],
       description:
-        "Get ready to explore a handpicked selection of games that cater to your unique gaming interests. From Jackpot, Hold & Win, and Megaways Slots to Keno and Bingo, we’ve got a game for you!",
+        "Get ready to explore a handpicked selection of games that cater to your unique gaming interests. From Jackpot, Hold & Win, and Megaways Slots to Keno and Bingo, we've got a game for you!",
     },
     {
       name: orderedCasinoData[5].casino,
@@ -189,6 +189,79 @@ export default async function Component() {
           our guide on using Bitcoin today.
         </p>
       </div>
+      <div id="checks">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 p-6 bg-amber-50 dark:bg-gray-800 border-2 border-amber-400 dark:border-amber-600 shadow-md rounded-lg mb-6">
+          <div className="flex flex-col items-center text-center">
+            <svg
+              className="w-16 h-16 text-green-600 mb-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
+            </svg>
+            <h3 className="text-xl font-bold mb-2 dark:text-white">
+              Licensed & Regulated
+            </h3>
+            <p className="text-gray-600 dark:text-gray-300">
+              All casinos are fully licensed and regulated by respected gaming
+              authorities
+            </p>
+          </div>
+          <div className="flex flex-col items-center text-center">
+            <svg
+              className="w-16 h-16 text-green-600 mb-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
+            </svg>
+            <h3 className="text-xl font-bold mb-2 dark:text-white">
+              Secure & Fair
+            </h3>
+            <p className="text-gray-600 dark:text-gray-300">
+              Verified RNG systems and SSL encryption ensure safe and fair
+              gaming experience
+            </p>
+          </div>
+          <div className="flex flex-col items-center text-center">
+            <svg
+              className="w-16 h-16 text-green-600 mb-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
+            </svg>
+            <h3 className="text-xl font-bold mb-2 dark:text-white">
+              Fast Payouts
+            </h3>
+            <p className="text-gray-600 dark:text-gray-300">
+              Quick and reliable withdrawal processing with multiple payment
+              options
+            </p>
+          </div>
+        </div>
+      </div>
       {/*<div className="text-center p-6 bg-amber-50 dark:bg-gray-800 border-2 mt-2 border-amber-400 dark:border-amber-600 shadow-md rounded-lg overflow-hidden">
         <h1 className="text-3xl font-bold mb-6 text-center dark:text-white">
           Get over 100% Payout on Slot Machines right now for Free
@@ -218,8 +291,38 @@ export default async function Component() {
         {casinos.map((casino, index) => (
           <li
             key={index}
-            className="bg-amber-50 dark:bg-gray-800 border-2 border-amber-400 dark:border-amber-600 shadow-md rounded-lg overflow-hidden"
+            className="bg-amber-50 dark:bg-gray-800 border-2 border-amber-400 dark:border-amber-600 shadow-md rounded-lg overflow-visible relative"
           >
+            {index === 0 && (
+              <Image
+                src="/best.png"
+                alt="Best Casino Badge"
+                width={200}
+                height={200}
+                className="absolute -left-24 top-1/2 transform -translate-y-1/2 z-20"
+                style={{ filter: "drop-shadow(0 0 10px rgba(0,0,0,0.2))" }}
+              />
+            )}
+            {index === 1 && (
+              <Image
+                src="/bestbonus.png"
+                alt="Best Bonus Badge"
+                width={200}
+                height={200}
+                className="absolute -left-24 top-1/2 transform -translate-y-1/2 z-20"
+                style={{ filter: "drop-shadow(0 0 10px rgba(0,0,0,0.2))" }}
+              />
+            )}
+            {index === 2 && (
+              <Image
+                src="/payouts.png"
+                alt="Best Payouts Badge"
+                width={200}
+                height={200}
+                className="absolute -left-24 top-1/2 transform -translate-y-1/2 z-20"
+                style={{ filter: "drop-shadow(0 0 10px rgba(0,0,0,0.2))" }}
+              />
+            )}
             <div className="flex flex-col sm:flex-row items-center p-4 gap-4">
               <div className="flex items-center justify-center w-16 h-16 bg-amber-500 dark:bg-amber-600 text-white rounded-full text-2xl font-bold">
                 {index + 1}
@@ -252,15 +355,38 @@ export default async function Component() {
                   {casino.description}
                 </p>
               </div>
-              <button className="w-full sm:w-auto px-6 py-2 bg-emerald-600 dark:bg-emerald-500 text-white font-semibold rounded-md hover:bg-emerald-700 dark:hover:bg-emerald-600 transition-colors duration-200 ease-in-out">
-                <a
-                  target="blank_"
-                  rel="sponsored"
-                  href={`/playCasino/${casino.clean_name}`}
-                >
-                  Play Now
-                </a>
-              </button>
+              <div className="flex flex-col items-center">
+                <div className="flex items-center mb-2">
+                  {[...Array(5)].map((_, i) => (
+                    <svg
+                      key={i}
+                      className={`w-5 h-5 ${
+                        (index < 5 && i < 5) || (index >= 5 && i < 4.5)
+                          ? "text-yellow-400"
+                          : "text-gray-300"
+                      }`}
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  ))}
+                </div>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
+                  {index < 5 ? "5.0" : "4.5"} • Voted by{" "}
+                  {1200 + Math.floor(Math.random() * 800)} users
+                </p>
+                <button className="w-full sm:w-auto px-6 py-2 bg-emerald-600 dark:bg-emerald-500 text-white font-semibold rounded-md hover:bg-emerald-700 dark:hover:bg-emerald-600 transition-colors duration-200 ease-in-out">
+                  <a
+                    target="blank_"
+                    rel="sponsored"
+                    href={`/playCasino/${casino.clean_name}`}
+                  >
+                    Play Now
+                  </a>
+                </button>
+              </div>
             </div>
           </li>
         ))}
@@ -279,9 +405,9 @@ export default async function Component() {
             <a
               target="blank_"
               rel="sponsored"
-              href="https://www.rtpslotbot.com/"
+              href="https://www.beatonlineslots.com/"
             >
-              Try the AI Bot Now
+              Try the AI Bot Now Exclusive 1 year code BEATTHEM
             </a>
           </button>
         </p>
