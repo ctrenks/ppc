@@ -1,20 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import Image from "next/image";
 import NewsLetter from "./NewsLetter";
-import { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: `Australia's top ten casinos for ${new Date().toLocaleString(
-    "default",
-    {
-      month: "long",
-    }
-  )} ${new Date().getFullYear() + 2}`,
-  description: `Find the hottest deals for Australian players for the month of ${new Date().toLocaleString(
-    "default",
-    { month: "long" }
-  )} ${new Date().getFullYear() + 2}`,
-};
 
 export default async function Component() {
   const siteId = 10;

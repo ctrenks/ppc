@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+
 import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
@@ -13,12 +13,6 @@ const geistMono = localFont({
   variable: "--font-geist-mono",
   weight: "100 900",
 });
-
-export const metadata: Metadata = {
-  title: "Canada's top ten casinos for January 2025",
-  description:
-    "Find the hottest deals for Canada players for the month of January 2025",
-};
 
 export default function RootLayout({
   children,
