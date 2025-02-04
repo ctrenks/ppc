@@ -4,13 +4,19 @@ import NewsLetter from "./NewsLetter";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Canada's top ten casinos for January 2025",
-  description:
-    "Find the hottest deals for Canada players for  the month of January 2025",
+  title: `Canada's top ten casinos for ${new Date().toLocaleString("default", {
+    month: "long",
+  })} ${new Date().getFullYear() + 2}`,
+  description: `Find the hottest deals for Canada players for the month of ${new Date().toLocaleString(
+    "default",
+    { month: "long" }
+  )} ${new Date().getFullYear() + 2}`,
 };
+
 export default async function Component() {
   const siteId = 10;
   const sitename = "Slots and Bonuses";
+  const currentMonth = new Date().toLocaleString("default", { month: "long" });
   const picks = "1358,1304,1103,1362,1334,1340,1353,1346,62";
   const picksArray = picks.split(",").map(Number);
 
@@ -178,7 +184,7 @@ export default async function Component() {
     <div className="container mx-auto px-4 py-8">
       <div className="bg-amber-50 dark:bg-gray-800 border-2 mb-2 border-amber-400 dark:border-amber-600 shadow-md rounded-lg overflow-hidden">
         <h1 className="text-3xl font-bold mb-6 text-center dark:text-white">
-          Top Canadian January Casinos
+          Top Canadian {currentMonth} Casinos
         </h1>
         <p className="text-xl p-4 text-center dark:text-gray-200">
           Delivering the top casinos for Canadian players, we believe that you
