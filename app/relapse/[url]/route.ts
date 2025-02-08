@@ -2,6 +2,15 @@ import { JSDOM } from "jsdom";
 import { NextResponse } from "next/server";
 import { type NextRequest } from "next/server";
 
+function getCaseVariations(text: string): string[] {
+  return [
+    text, // original
+    text.toLowerCase(), // lowercase
+    text.charAt(0).toUpperCase() + text.slice(1).toLowerCase(), // First letter capital
+    text.toUpperCase(), // UPPERCASE
+  ];
+}
+
 export async function GET(
   request: NextRequest,
   context: { params: Promise<{ url: string }> }
@@ -40,25 +49,58 @@ export async function GET(
       throw new Error(`Failed to fetch content: ${response.statusText}`);
     }
 
-    let content = await response.text();
+    const content = await response.text();
 
-    // Basic text replacements
-    const replacements = [
-      { from: "Login", to: "Enter" },
-      { from: "Sign up", to: "Join" },
-      { from: "Buy", to: "Get" },
-      { from: "Purchase", to: "Acquire" },
-      { from: "Shop", to: "Browse" },
-      { from: "Cart", to: "Bag" },
-    ];
-
-    replacements.forEach(({ from, to }) => {
-      content = content.replace(new RegExp(from, "gi"), to);
-    });
-
-    // Parse and modify the HTML
+    // Parse the HTML
     const dom = new JSDOM(content);
     const document = dom.window.document;
+
+    // Text replacement function that works on text nodes only
+    const baseReplacements = [
+      { from: "Realprize", to: "Winzino" },
+      { from: "Realplay", to: "Winzino" },
+      { from: "Real Prize", to: "Winzino" },
+    ];
+
+    // Generate case variations for each replacement
+    const replacements = baseReplacements.flatMap(({ from, to }) => {
+      const fromVariations = getCaseVariations(from);
+      const toVariations = getCaseVariations(to);
+      // Match case of replacement with original
+      return fromVariations.map((fromVar, index) => ({
+        from: fromVar,
+        to: toVariations[index],
+      }));
+    });
+
+    // Function to replace text in a single text node
+    function replaceTextInNode(textNode: Text) {
+      let newText = textNode.textContent || "";
+      replacements.forEach(({ from, to }) => {
+        // Use case-sensitive replacement
+        newText = newText.split(from).join(to);
+      });
+      if (newText !== textNode.textContent) {
+        textNode.textContent = newText;
+      }
+    }
+
+    // Function to walk through all text nodes
+    function walkTextNodes(node: Node) {
+      if (node.nodeType === 3) {
+        // Text node
+        replaceTextInNode(node as Text);
+      } else {
+        // Skip script and style elements
+        if (node.nodeName !== "SCRIPT" && node.nodeName !== "STYLE") {
+          const children = Array.from(node.childNodes);
+          children.forEach(walkTextNodes);
+        }
+      }
+    }
+
+    // Apply replacements to text nodes only
+    walkTextNodes(document.body);
 
     // Handle links
     document.querySelectorAll("a").forEach((link) => {
