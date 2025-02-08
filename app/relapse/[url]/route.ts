@@ -1,12 +1,16 @@
 import { JSDOM } from "jsdom";
 import { NextResponse } from "next/server";
+import { type NextRequest } from "next/server";
 
 export async function GET(
-  request: Request,
-  { params }: { params: { url: string } }
+  request: NextRequest,
+  context: { params: Promise<{ url: string }> }
 ) {
+  let urlParam = "Unknown URL";
   try {
-    const decodedUrl = decodeURIComponent(params.url);
+    const { url } = await context.params;
+    urlParam = url;
+    const decodedUrl = decodeURIComponent(url);
 
     // Basic URL validation
     try {
@@ -127,7 +131,9 @@ export async function GET(
         <body>
           <div style="color: red">Error: ${errorMessage}</div>
           <div style="margin-top: 1rem">
-            Attempted URL: ${decodeURIComponent(params.url)}
+            Attempted URL: ${
+              urlParam ? decodeURIComponent(urlParam) : "Unknown URL"
+            }
           </div>
         </body>
       </html>`,
