@@ -40,12 +40,7 @@ export async function GET(
     // console.log(casino);
     // Record the visit if we have a casino ID
     if (casino.id) {
-      const outbounding = await prisma.outbounding.findFirst({
-        where: {
-          casinoId: casino.id,
-          ip: ip,
-        },
-      });
+      const outbounding = null;
       if (!outbounding) {
         await prisma.outbounding.create({
           data: {

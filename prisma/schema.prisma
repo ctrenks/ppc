@@ -1,6 +1,8 @@
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_PRISMA_URL")
+
+  url = "postgres://default:3NFysg8QHLaR@ep-yellow-glade-a5un8iv1-pooler.us-east-2.aws.neon.tech:5432/verceldb?sslmode=require&pgbouncer=true&connect_timeout=15"
+
 }
 
 generator client {
@@ -164,6 +166,7 @@ model casino_p_casinos {
   importedBonuses ImportedBonus[]
   unifiedBonuses  UnifiedBonus[]
   ppc_links       ppc_links[]
+  Postback        Postback[]
 }
 
 model casino_p_ppc {
@@ -339,7 +342,6 @@ model outbounding {
   userAgent   String
   referer     String
 
-  @@unique([ip, casinoId])
 }
 
 model Newsletter {
@@ -663,13 +665,43 @@ model UnifiedBonus {
 }
 
 model ppc_links {
-  id        Int               @id @default(autoincrement())
+  id        Int              @id @default(autoincrement())
   casino_id Int
-  geo       String           @db.Char(2)  // 2 letter country code
+  geo       String           @db.Char(2) // 2 letter country code
   url       String
   casino    casino_p_casinos @relation(fields: [casino_id], references: [id], onDelete: Cascade)
 
-  @@unique([casino_id, geo], name: "casino_id_geo")  // Named composite unique constraint
+  @@unique([casino_id, geo], name: "casino_id_geo") // Named composite unique constraint
   @@index([casino_id])
   @@index([geo])
+}
+
+model Postback {
+  id          String   @id @default(cuid())
+  clickId     String?
+  status      String
+  amount      Float?
+  currency    String?
+  casinoId    Int?
+  playerId    String?
+  campaign    String?
+  campaignId  String?
+  depositId   String?
+  visitId     String?
+  promoId     String?
+  ipAddress   String?
+  userAgent   String?
+  rawData     Json?
+  processedAt DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  casino casino_p_casinos? @relation(fields: [casinoId], references: [id])
+
+  @@index([clickId])
+  @@index([casinoId])
+  @@index([processedAt])
+  @@index([campaignId])
+  @@index([depositId])
+  @@index([visitId])
 }
