@@ -49,7 +49,7 @@ export async function GET(
             ip: ip,
             casinoId: casino.id,
             referer: referer,
-          },
+          },soc
         });
       }
     }

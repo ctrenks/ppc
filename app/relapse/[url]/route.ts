@@ -11,6 +11,13 @@ function getCaseVariations(text: string): string[] {
   ];
 }
 
+function getCurrentMonthYear() {
+  const date = new Date();
+  const month = date.toLocaleString("default", { month: "long" });
+  const year = date.getFullYear();
+  return { month, year };
+}
+
 export async function GET(
   request: NextRequest,
   context: { params: Promise<{ url: string }> }
@@ -54,6 +61,30 @@ export async function GET(
     // Parse the HTML
     const dom = new JSDOM(content);
     const document = dom.window.document;
+
+    // Update meta tags and title with current month/year
+    const { month, year } = getCurrentMonthYear();
+
+    // Update title tag
+    const titleTag = document.querySelector("title");
+    if (titleTag && titleTag.textContent) {
+      titleTag.textContent = titleTag.textContent.replace(
+        /(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{4}/gi,
+        `${month} ${year}`
+      );
+    }
+
+    // Update meta tags
+    document.querySelectorAll("meta").forEach((meta) => {
+      const content = meta.getAttribute("content");
+      if (content) {
+        const updatedContent = content.replace(
+          /(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{4}/gi,
+          `${month} ${year}`
+        );
+        meta.setAttribute("content", updatedContent);
+      }
+    });
 
     // Text replacement function that works on text nodes only
     const baseReplacements = [
